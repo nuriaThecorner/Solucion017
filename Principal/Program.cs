@@ -19,6 +19,9 @@ namespace Principal
             program.Comprobar();
             program.Eliminar();
             program.Comprobar();
+            program.EliminarTodosLosRegistrosQue();
+            program.Comprobar();
+            
 
         }
 
@@ -56,15 +59,15 @@ namespace Principal
         //SELECT O READ
         private void Comprobar()
         {
-        Class1 class1 = new Class1();
-        IList<Categoria> categorias = class1.DevuelveCategorias();
+            Class1 class1 = new Class1();
+            IList<Categoria> categorias = class1.DevuelveCategorias();
 
-        foreach (Categoria categoria in categorias)
+            foreach (Categoria categoria in categorias)
             {
-            Console.WriteLine(categoria.CategoryName);
-            
+                Console.WriteLine(categoria.CategoryName);
+
             }
-    Console.ReadLine();
+            Console.ReadLine();
         }
 
 
@@ -84,13 +87,13 @@ namespace Principal
             Console.WriteLine("Dime el id del regitro a modificar");
             string texto = Console.ReadLine();
             int id = 0;
-            if (int.TryParse(texto, out id) ==true)
+            if (int.TryParse(texto, out id) == true)
             {
                 id = int.Parse(texto);
             }
 
             Console.WriteLine("Ahora dime el nuevo nombre");
-            
+
             texto = Console.ReadLine();
 
             bool ok = false;
@@ -100,7 +103,7 @@ namespace Principal
             Console.WriteLine("El resultado de la modificacion es " + ok);
 
             Console.ReadLine();
-             
+
         }
 
         //DELETE
@@ -125,7 +128,7 @@ namespace Principal
                 id = int.Parse(texto);
             }
 
-  
+
 
             bool ok = false;
 
@@ -138,8 +141,48 @@ namespace Principal
         }
 
 
+        //Delete muchos registros
+
+        private void EliminarTodosLosRegistrosQue()
+        {
+
+            Class1 class1 = new Class1();
+            IList<Categoria> categorias = class1.DevuelveCategorias();
 
 
+
+            foreach (Categoria categoria in categorias)
+            {
+                Console.WriteLine(categoria.CategoryID + " " + categoria.CategoryName);
+
+            }
+            Console.WriteLine("Dime el nombre del registro a eliminar");
+            string texto = Console.ReadLine();
+            string nombre = texto;
+            //if (int.TryParse(texto, out id) == true)
+            //{
+            //    id = int.Parse(nombre);
+            //}
+
+            //Elimina todos los registros que tiene ese nombre
+
+
+            bool ok = false;
+
+            ok = class1.EliminarRegistros(nombre);
+
+            Console.WriteLine("El resultado de la eliminación es " + ok);
+
+            Console.ReadLine();
+
+
+
+
+
+
+
+
+        }
 
 
 

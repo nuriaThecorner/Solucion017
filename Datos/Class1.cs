@@ -125,5 +125,39 @@ namespace Datos
         }
 
 
+
+        public bool EliminarRegistros(string nombre)
+        {
+            bool ok = false;
+
+
+            Categoria categoria = null;
+
+            categoria = _dbContext.Categoria.Where(x => x.CategoryName == nombre).FirstOrDefault();
+
+            _dbContext.Categoria.Remove(categoria);
+
+            try
+            {
+                int respuesta = 0;
+                respuesta = _dbContext.SaveChanges();
+
+                if (respuesta > 0)
+                {
+                    ok = true;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return ok;
+
+        }
+
+
     }
 }
